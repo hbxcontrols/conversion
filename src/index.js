@@ -6,6 +6,27 @@ module.exports = {
 		symbol: null
 	},
 
+	calculationFormat: {
+		gal: 'gal',
+		l: 'L',
+		m3: 'm3',
+		gpm: 'GPM',
+		lpm: 'LPM',
+		btu: 'BTU',
+		gj: 'Gj',
+		kw: 'kW',
+		mw: 'MW',
+		thm: 'thm',
+		bar: 'bar',
+		kpa: 'kPa',
+		psi: 'psi'
+	},
+
+	formatUnit: (unit) => {
+		if(!this.calculationFormat[unit.toLowerCase]) throw new Error('Invalid unit type.')
+		return this.calculationFormat[unit.toLowerCase]
+	},
+
 	volume: (value, measurement) => {
 		switch(measurement.toLowerCase()) {
 			case 'gal':
