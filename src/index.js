@@ -7,19 +7,20 @@ module.exports = {
 	},
 
 	calculationFormat: {
-		gal: 'gal',
-		l: 'L',
-		m3: 'm3',
-		gpm: 'GPM',
-		lpm: 'LPM',
 		btu: 'BTU',
-		gj: 'Gj',
-		kw: 'kW',
-		mw: 'MW',
-		thm: 'thm',
 		bar: 'bar',
+		gal: 'gal',
+		gj: 'Gj',
+		gpm: 'GPM',
 		kpa: 'kPa',
-		psi: 'psi'
+		kw: 'kW',
+		kbtu: 'kBTU',
+		l: 'L',
+		lpm: 'LPM',
+		m3: 'm3',
+		mw: 'MW',
+		psi: 'psi',
+		thm: 'thm'
 	},
 
 	formatUnit: (unit) => {
@@ -92,38 +93,45 @@ module.exports = {
 
 	energy: (value, measurement) => {
 		switch(measurement.toLowerCase()) {
-			case 'btu':
+			case 'kbtu':
 				return {
 					...this.calculationObject,
 					value,
+					unit: 'kBTU'
+				}
+
+			case 'btu':
+				return {
+					...this.calculationObject,
+					value: value * 1000,
 					unit: 'BTU'
 				}
 
 			case 'gj':
 				return {
 					...this.calculationObject,
-					value: value / 947817,
+					value: (value * 1000) / 947817, // Multiply base value by 1000 to convert kBTU to BTU
 					unit: 'Gj'
 				}
 
 			case 'kw':
 				return {
 					...this.calculationObject,
-					value: value / 3.412141633,
+					value: (value * 1000) / 3.412141633, // Multiply base value by 1000 to convert kBTU to BTU
 					unit: 'kW'
 				}
 
 			case 'mw':
 				return {
 					...this.calculationObject,
-					value: value * 0.00000029,
+					value: (value * 1000) * 0.00000029, // Multiply base value by 1000 to convert kBTU to BTU
 					unit: 'MW'
 				}
 
 			case 'thm':
 				return {
 					...this.calculationObject,
-					value: value / 99976,
+					value: (value * 1000) / 99976, // Multiply base value by 1000 to convert kBTU to BTU
 					unit: 'thm'
 				}
 
@@ -131,7 +139,7 @@ module.exports = {
 				return {
 					...this.calculationObject,
 					value,
-					unit: 'BTU'
+					unit: 'kBTU'
 				}
 		}
 	},
