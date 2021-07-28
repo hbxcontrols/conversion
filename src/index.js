@@ -20,42 +20,44 @@ module.exports = {
 		m3: 'm3',
 		mw: 'MW',
 		psi: 'psi',
-		thm: 'thm'
+		thm: 'thm',
+		c: 'C',
+		f: 'F'
 	},
 
-	formatUnit: (unit) => {
-		if(!this.calculationFormat[unit.toLowerCase]) throw new Error('Invalid unit type.')
-		return this.calculationFormat[unit.toLowerCase]
+	formatUnit: function (unit) {
+		if(!this.calculationFormat[unit.toLowerCase()]) throw new Error(`Invalid unit type ${unit}.`)
+		return this.calculationFormat[unit.toLowerCase()]
 	},
 
-	volume: (value, measurement) => {
+	volume: function(value, measurement) {
 		switch(measurement.toLowerCase()) {
 			case 'gal':
 				return {
 					...this.calculationObject,
 					value,
-					unit: 'gal'
+					unit: this.formatUnit(measurement)
 				}
 
 			case 'l':
 				return {
 					...this.calculationObject,
 					value: value * 3.785412,
-					unit: 'L'
+					unit: this.formatUnit(measurement)
 				}
 
 			case 'm3':
 				return {
 					...this.calculationObject,
 					value: value / 264.17,
-					unit: 'm3'
+					unit: this.formatUnit(measurement)
 				}
 
 			default:
 				return {
 					...this.calculationObject,
 					value,
-					unit: 'gal'
+					unit: this.formatUnit(measurement)
 				}
 		}
 	},
@@ -63,27 +65,27 @@ module.exports = {
 
 
 
-	flow: (value, measurement) => {
+	flow: function(value, measurement) {
 		switch(measurement.toLowerCase()) {
 			case 'gpm':
 				return {
 					...this.calculationObject,
 					value,
-					unit: 'gpm'
+					unit: this.formatUnit(measurement)
 				}
 
 			case 'lpm':
 				return {
 					...this.calculationObject,
 					value: value * 3.785412,
-					unit: 'lpm'
+					unit: this.formatUnit(measurement)
 				}
 
 			default:
 				return {
 					...this.calculationObject,
 					value,
-					unit: 'gpm'
+					unit: this.formatUnit(measurement)
 				}
 		}
 	},
@@ -91,55 +93,55 @@ module.exports = {
 
 
 
-	energy: (value, measurement) => {
+	energy: function(value, measurement) {
 		switch(measurement.toLowerCase()) {
 			case 'kbtu':
 				return {
 					...this.calculationObject,
 					value,
-					unit: 'kBTU'
+					unit: this.formatUnit(measurement)
 				}
 
 			case 'btu':
 				return {
 					...this.calculationObject,
 					value: value * 1000,
-					unit: 'BTU'
+					unit: this.formatUnit(measurement)
 				}
 
 			case 'gj':
 				return {
 					...this.calculationObject,
 					value: (value * 1000) / 947817, // Multiply base value by 1000 to convert kBTU to BTU
-					unit: 'Gj'
+					unit: this.formatUnit(measurement)
 				}
 
 			case 'kw':
 				return {
 					...this.calculationObject,
 					value: (value * 1000) / 3.412141633, // Multiply base value by 1000 to convert kBTU to BTU
-					unit: 'kW'
+					unit: this.formatUnit(measurement)
 				}
 
 			case 'mw':
 				return {
 					...this.calculationObject,
 					value: (value * 1000) * 0.00000029, // Multiply base value by 1000 to convert kBTU to BTU
-					unit: 'MW'
+					unit: this.formatUnit(measurement)
 				}
 
 			case 'thm':
 				return {
 					...this.calculationObject,
 					value: (value * 1000) / 99976, // Multiply base value by 1000 to convert kBTU to BTU
-					unit: 'thm'
+					unit: this.formatUnit(measurement)
 				}
 
 			default:
 				return {
 					...this.calculationObject,
 					value,
-					unit: 'kBTU'
+					unit: this.formatUnit(measurement)
 				}
 		}
 	},
@@ -147,34 +149,34 @@ module.exports = {
 
 
 
-	pressure: (value, measurement) => {
+	pressure: function(value, measurement) {
 		switch(measurement.toLowerCase()) {
 			case 'bar':
 				return {
 					...this.calculationObject,
 					value: value / 14.5037,
-					unit: 'bar'
+					unit: this.formatUnit(measurement)
 				}
 
 			case 'kpa':
 				return {
 					...this.calculationObject,
 					value: value * 6.895,
-					unit: 'kPa'
+					unit: this.formatUnit(measurement)
 				}
 
 			case 'psi':
 				return {
 					...this.calculationObject,
 					value,
-					unit: 'psi'
+					unit: this.formatUnit(measurement)
 				}
 
 			default:
 				return {
 					...this.calculationObject,
 					value,
-					unit: 'psi'
+					unit: this.formatUnit(measurement)
 				}
 		}
 	},
@@ -182,14 +184,14 @@ module.exports = {
 
 
 
-	temperature: (value, measurement) => {
+	temperature: function(value, measurement) {
 		switch(measurement.toLowerCase()) {
 			case 'c':
 				return {
 					...this.calculationObject,
 					value: (value - 32) / 1.8,
 					symbol: '0xC2',
-					unit: 'C'
+					unit: this.formatUnit(measurement)
 				}
 
 			case 'f':
@@ -197,7 +199,7 @@ module.exports = {
 					...this.calculationObject,
 					value,
 					symbol: '0xC2',
-					unit: 'F'
+					unit: this.formatUnit(measurement)
 				}
 
 			default:
@@ -205,7 +207,7 @@ module.exports = {
 					...this.calculationObject,
 					value,
 					symbol: '0xC2',
-					unit: 'F'
+					unit: this.formatUnit(measurement)
 				}
 		}
 	}
