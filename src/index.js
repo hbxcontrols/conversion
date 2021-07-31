@@ -190,7 +190,7 @@ module.exports = {
 				return {
 					...this.calculationObject,
 					value: (value - 32) / 1.8,
-					symbol: '0xC2',
+					symbol: '°',
 					unit: this.formatUnit(measurement)
 				}
 
@@ -198,7 +198,7 @@ module.exports = {
 				return {
 					...this.calculationObject,
 					value,
-					symbol: '0xC2',
+					symbol: '°',
 					unit: this.formatUnit(measurement)
 				}
 
@@ -206,7 +206,7 @@ module.exports = {
 				return {
 					...this.calculationObject,
 					value,
-					symbol: '0xC2',
+					symbol: '°',
 					unit: this.formatUnit(measurement)
 				}
 		}
