@@ -98,42 +98,42 @@ module.exports = {
 			case 'kbtu':
 				return {
 					...this.calculationObject,
-					value,
+					value: value / 1000,
 					unit: this.formatUnit(measurement)
 				}
 
 			case 'btu':
 				return {
 					...this.calculationObject,
-					value: value * 1000,
+					value: value,
 					unit: this.formatUnit(measurement)
 				}
 
 			case 'gj':
 				return {
 					...this.calculationObject,
-					value: (value * 1000) / 947817, // Multiply base value by 1000 to convert kBTU to BTU
+					value: value / 947817,
 					unit: this.formatUnit(measurement)
 				}
 
 			case 'kw':
 				return {
 					...this.calculationObject,
-					value: (value * 1000) / 3.412141633, // Multiply base value by 1000 to convert kBTU to BTU
+					value: value / 3.412141633,
 					unit: this.formatUnit(measurement)
 				}
 
 			case 'mw':
 				return {
 					...this.calculationObject,
-					value: (value * 1000) * 0.00000029, // Multiply base value by 1000 to convert kBTU to BTU
+					value: value * 0.00000029,
 					unit: this.formatUnit(measurement)
 				}
 
 			case 'thm':
 				return {
 					...this.calculationObject,
-					value: (value * 1000) / 99976, // Multiply base value by 1000 to convert kBTU to BTU
+					value: value / 99976,
 					unit: this.formatUnit(measurement)
 				}
 
