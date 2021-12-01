@@ -30,6 +30,10 @@ module.exports = {
 		return this.calculationFormat[unit.toLowerCase()]
 	},
 
+	roundTo: function(val, decimals) {
+		return (Math.round(val * 100) / 100).toFixed(decimals)
+	},
+
 	volume: function(value, measurement) {
 		switch(measurement.toLowerCase()) {
 			case 'gal':

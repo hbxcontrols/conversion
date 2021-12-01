@@ -1,5 +1,5 @@
 {
-  "name": "conversion",
+  "name": "@hbxcontrols/conversion",
   "version": "1.0.0",
   "description": "A set of tools for converting units of measurement for HBX applications",
   "main": "src",
@@ -7,5 +7,5 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Chris Tohill <graphics@hbxcontrols.com>",
-  "license": "UNLICENSED"
+  "license": "MIT"
 }
