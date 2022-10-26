@@ -58,7 +58,7 @@ module.exports = {
 					unit: this.formatUnit(measurement)
 				}
 
-			case: 'ccf':
+			case 'ccf':
 				return {
 					...this.calculationObject,
 					value: value / 748,
