@@ -54,7 +54,7 @@ module.exports = {
 			case 'm3':
 				return {
 					...this.calculationObject,
-					value: value / 264.17,
+					value: value / 264.172,
 					unit: this.formatUnit(measurement)
 				}
 
