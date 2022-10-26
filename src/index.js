@@ -130,7 +130,7 @@ module.exports = {
 			case 'mw':
 				return {
 					...this.calculationObject,
-					value: value * 0.00000029,
+					value: value / 3412.141633,
 					unit: this.formatUnit(measurement)
 				}
 
