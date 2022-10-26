@@ -123,14 +123,14 @@ module.exports = {
 			case 'kw':
 				return {
 					...this.calculationObject,
-					value: value / 3.412141633,
+					value: value / 3412.141633,
 					unit: this.formatUnit(measurement)
 				}
 
 			case 'mw':
 				return {
 					...this.calculationObject,
-					value: value / 3412.141633,
+					value: value / 3412141.633,
 					unit: this.formatUnit(measurement)
 				}
 
