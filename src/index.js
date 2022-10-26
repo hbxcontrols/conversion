@@ -10,6 +10,7 @@ module.exports = {
 		btu: 'BTU',
 		bar: 'bar',
 		gal: 'gal',
+		ccf: 'CCF',
 		gj: 'Gj',
 		gpm: 'GPM',
 		kpa: 'kPa',
@@ -54,6 +55,13 @@ module.exports = {
 				return {
 					...this.calculationObject,
 					value: value / 264.17,
+					unit: this.formatUnit(measurement)
+				}
+
+			case: 'ccf':
+				return {
+					...this.calculationObject,
+					value: value / 748,
 					unit: this.formatUnit(measurement)
 				}
 
