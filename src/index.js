@@ -1,226 +1,232 @@
-module.exports = {
+const precision = require('number-precision')
+precision.enableBoundaryChecking(false)
 
-	calculationObject: {
-		value: null,
-		unit: null,
-		symbol: null
-	},
+class Conversions {
 
-	calculationFormat: {
-		btu: 'BTU',
-		bar: 'bar',
-		gal: 'gal',
-		ccf: 'CCF',
-		gj: 'Gj',
-		gpm: 'GPM',
-		kpa: 'kPa',
-		kw: 'kW',
-		kbtu: 'kBTU',
-		l: 'L',
-		lpm: 'LPM',
-		m3: 'm3',
-		mw: 'MW',
-		psi: 'psi',
-		thm: 'thm',
-		c: 'C',
-		f: 'F'
-	},
+	constructor(value = 0) {
+		this.value = value
+	}
 
-	formatUnit: function (unit) {
-		if(!this.calculationFormat[unit.toLowerCase()]) throw new Error(`Invalid unit type ${unit}.`)
-		return this.calculationFormat[unit.toLowerCase()]
-	},
+	/**
+	 * @param {String} unit The unit to be converted
+	 * @returns this
+	 */
+	convert(unit, value = null) {
+		if(value) this.set(value)
+		this.value = (this.types[unit]) ? this.types[unit.toLowerCase()].convert(this.value) : 0
+		return this
+	}
 
-	roundTo: function(val, decimals) {
-		return (Math.round(val * 100) / 100).toFixed(decimals)
-	},
+	/**
+	 * @param {Number} val Value to be rounded
+	 * @param {Number} decimals Number of decimal places to return
+	 * @returns this
+	 */
+	round (decimals = 2) {
+		console.log(decimals)
+		this.value = precision.round(this.value, decimals)
+		return this
+	}
 
-	volume: function(value, measurement) {
-		switch(measurement.toLowerCase()) {
-			case 'gal':
-				return {
-					...this.calculationObject,
-					value,
-					unit: this.formatUnit(measurement)
-				}
+	/**
+	 * @param {Number} value Set numeric value
+	 * @returns this
+	 */
+	set (value) {
+		if(!value || isNaN(parseFloat(value))) throw Error('Value input must be a number')
+		this.value = value
+		return this
+	}
 
-			case 'l':
-				return {
-					...this.calculationObject,
-					value: value * 3.785412,
-					unit: this.formatUnit(measurement)
-				}
+	/**
+	 * Backwards compatibility methods for v1 of this module
+	 * @param {Number} val
+	 * @param {String} unit
+	 * @returns Conversion object
+	 */
+	volume = (val, unit) => this.convert(unit, val)
+	flow = (val, unit) => this.convert(unit, val)
+	energy = (val, unit) => this.convert(unit, val)
+	temperature = (val, unit) => this.convert(unit, val)
+	pressure = (val, unit) => this.convert(unit, val)
 
-			case 'm3':
-				return {
-					...this.calculationObject,
-					value: value / 264.172,
-					unit: this.formatUnit(measurement)
-				}
-
-			case 'ccf':
-				return {
-					...this.calculationObject,
-					value: value / 748,
-					unit: this.formatUnit(measurement)
-				}
-
-			default:
-				return {
-					...this.calculationObject,
-					value,
-					unit: this.formatUnit(measurement)
-				}
-		}
-	},
-
-
-
-
-	flow: function(value, measurement) {
-		switch(measurement.toLowerCase()) {
-			case 'gpm':
-				return {
-					...this.calculationObject,
-					value,
-					unit: this.formatUnit(measurement)
-				}
-
-			case 'lpm':
-				return {
-					...this.calculationObject,
-					value: value * 3.785412,
-					unit: this.formatUnit(measurement)
-				}
-
-			default:
-				return {
-					...this.calculationObject,
-					value,
-					unit: this.formatUnit(measurement)
-				}
-		}
-	},
-
-
-
-
-	energy: function(value, measurement) {
-		switch(measurement.toLowerCase()) {
-			case 'kbtu':
-				return {
-					...this.calculationObject,
-					value: value / 1000,
-					unit: this.formatUnit(measurement)
-				}
-
-			case 'btu':
-				return {
-					...this.calculationObject,
-					value: value,
-					unit: this.formatUnit(measurement)
-				}
-
-			case 'gj':
-				return {
-					...this.calculationObject,
-					value: value / 947817,
-					unit: this.formatUnit(measurement)
-				}
-
-			case 'kw':
-				return {
-					...this.calculationObject,
-					value: value / 3412.141633,
-					unit: this.formatUnit(measurement)
-				}
-
-			case 'mw':
-				return {
-					...this.calculationObject,
-					value: value / 3412141.633,
-					unit: this.formatUnit(measurement)
-				}
-
-			case 'thm':
-				return {
-					...this.calculationObject,
-					value: value / 99976,
-					unit: this.formatUnit(measurement)
-				}
-
-			default:
-				return {
-					...this.calculationObject,
-					value,
-					unit: this.formatUnit(measurement)
-				}
-		}
-	},
-
-
-
-
-	pressure: function(value, measurement) {
-		switch(measurement.toLowerCase()) {
-			case 'bar':
-				return {
-					...this.calculationObject,
-					value: value / 14.5037,
-					unit: this.formatUnit(measurement)
-				}
-
-			case 'kpa':
-				return {
-					...this.calculationObject,
-					value: value * 6.895,
-					unit: this.formatUnit(measurement)
-				}
-
-			case 'psi':
-				return {
-					...this.calculationObject,
-					value,
-					unit: this.formatUnit(measurement)
-				}
-
-			default:
-				return {
-					...this.calculationObject,
-					value,
-					unit: this.formatUnit(measurement)
-				}
-		}
-	},
-
-
-
-
-	temperature: function(value, measurement) {
-		switch(measurement.toLowerCase()) {
-			case 'c':
-				return {
-					...this.calculationObject,
-					value: (value - 32) / 1.8,
-					symbol: '°',
-					unit: this.formatUnit(measurement)
-				}
-
-			case 'f':
-				return {
-					...this.calculationObject,
-					value,
-					symbol: '°',
-					unit: this.formatUnit(measurement)
-				}
-
-			default:
-				return {
-					...this.calculationObject,
-					value,
-					symbol: '°',
-					unit: this.formatUnit(measurement)
-				}
+	types = {
+		// Volume
+		gal: { // Default
+			singularName: 'Gallon',
+			pluralName: 'Gallons',
+			safeName: 'gal',
+			unit: 'gal',
+			symbol: null,
+			symbolHTML: null,
+			type: 'volume',
+			convert: (val) => val
+		},
+		l: {
+			singularName: 'Litre',
+			pluralName: 'Litres',
+			safeName: 'l',
+			unit: 'L',
+			symbol: null,
+			symbolHTML: null,
+			type: 'volume',
+			convert: (val) => val * 3.785412
+		},
+		m3: {
+			singularName: 'Metres Cubed',
+			pluralName: 'Metres Cubed',
+			safeName: 'm3',
+			unit: 'm3',
+			symbol: null,
+			symbolHTML: null,
+			type: 'volume',
+			convert: (val) => val / 264.172
+		},
+		ccf: {
+			singularName: 'One-hundred Cubic-feet',
+			pluralName: 'One-hundred Cubic-feet',
+			safeName: 'ccf',
+			unit: 'ccf',
+			symbol: null,
+			symbolHTML: null,
+			type: 'volume',
+			convert: (val) => val / 748
+		},
+		// Flow
+		gpm: { // Default
+			singularName: 'Gallons per minute',
+			pluralName: 'Gallons per minute',
+			safeName: 'gpm',
+			unit: 'gpm',
+			symbol: null,
+			symbolHTML: null,
+			type: 'flow',
+			convert: (val) => val
+		},
+		lpm: {
+			singularName: 'Litres per minute',
+			pluralName: 'Litres per minute',
+			safeName: 'lpm',
+			unit: 'LPM',
+			symbol: null,
+			symbolHTML: null,
+			type: 'flow',
+			convert: (val) => val * 3.785412
+		},
+		// Energy
+		btu: { // Default
+			singularName: 'British Thermal Unit',
+			pluralName: 'British Thermal Units',
+			safeName: 'btu',
+			unit: 'btu',
+			symbol: null,
+			symbolHTML: null,
+			type: 'energy',
+			convert: (val) => val
+		},
+		kbtu: {
+			singularName: 'One-thousand British Thermal Units',
+			pluralName: 'One-thousand British Thermal Units',
+			safeName: 'kbtu',
+			unit: 'kBTU',
+			symbol: null,
+			symbolHTML: null,
+			type: 'energy',
+			convert: (val) => val / 1000
+		},
+		gj: {
+			singularName: 'Gigajoule',
+			pluralName: 'Gigajoules',
+			safeName: 'gj',
+			unit: 'Gj',
+			symbol: null,
+			symbolHTML: null,
+			type: 'energy',
+			convert: (val) => val / 947817
+		},
+		kw: {
+			singularName: 'Kilowatt',
+			pluralName: 'Kilowatts',
+			safeName: 'kw',
+			unit: 'kW',
+			symbol: null,
+			symbolHTML: null,
+			type: 'energy',
+			convert: (val) => val / 3412.141633
+		},
+		mw: {
+			singularName: 'Megawatt',
+			pluralName: 'Megawatts',
+			safeName: 'mw',
+			unit: 'MW',
+			symbol: null,
+			symbolHTML: null,
+			type: 'energy',
+			convert: (val) => val / 3412141.633
+		},
+		thm: {
+			singularName: 'Therm',
+			pluralName: 'Therms',
+			safeName: 'thm',
+			unit: 'thm',
+			symbol: null,
+			symbolHTML: null,
+			type: 'energy',
+			convert: (val) => val / 99976
+		},
+		// Pressure
+		psi: { // Default
+			singularName: 'Pound per Square Inch',
+			pluralName: 'Pounds per Square Inch',
+			safeName: 'psi',
+			unit: 'PSi',
+			symbol: null,
+			symbolHTML: null,
+			type: 'pressure',
+			convert: (val) => val
+		},
+		bar: {
+			singularName: 'Bar',
+			pluralName: 'Bar',
+			safeName: 'bar',
+			unit: 'bar',
+			symbol: null,
+			symbolHTML: null,
+			type: 'pressure',
+			convert: (val) => val / 14.5037
+		},
+		kpa: {
+			singularName: 'Kilopascal',
+			pluralName: 'Kilopascals',
+			safeName: 'kpa',
+			unit: 'kPa',
+			symbol: null,
+			symbolHTML: null,
+			type: 'pressure',
+			convert: (val) => val * 6.895
+		},
+		// Temperature
+		f: { // Default
+			singularName: 'Fahrenheit',
+			pluralName: 'Fahrenheit',
+			safeName: 'f',
+			unit: 'F',
+			symbol: '°',
+			symbolHTML: '&deg;',
+			type: 'temperature',
+			convert: (val) => val
+		},
+		c: {
+			singularname: 'Celcius',
+			pluralName: 'Celcius',
+			safeName: 'c',
+			unit: 'C',
+			symbol: '°',
+			symbolHTML: '&deg;',
+			type: 'temperature',
+			convert: (val) => (val - 32) / 1.8
 		}
 	}
 }
+
+module.exports = new Conversions()
