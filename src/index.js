@@ -8,6 +8,16 @@ class Conversions {
 	}
 
 	/**
+	 * Return a measurement object
+	 * @param {String} unit Type of measurement to return
+	 * @returns Object of measurement type
+	 */
+	type(unit) {
+		return (this.types[unit]) ? this.types[unit] : null
+	}
+
+	/**
+	 * Convert a value to a different measurement
 	 * @param {String} unit The unit to be converted
 	 * @returns this
 	 */
@@ -18,17 +28,18 @@ class Conversions {
 	}
 
 	/**
+	 * Round the current value to a precision point
 	 * @param {Number} val Value to be rounded
 	 * @param {Number} decimals Number of decimal places to return
 	 * @returns this
 	 */
 	round (decimals = 2) {
-		console.log(decimals)
 		this.value = precision.round(this.value, decimals)
 		return this
 	}
 
 	/**
+	 * Set the value to be used/converted
 	 * @param {Number} value Set numeric value
 	 * @returns this
 	 */
