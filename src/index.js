@@ -84,8 +84,8 @@ class Conversions {
 			convert: (val) => val * 3.785412
 		},
 		m3: {
-			singularName: 'Metres Cubed',
-			pluralName: 'Metres Cubed',
+			singularName: 'Cubic Metre',
+			pluralName: 'Cubic Metres',
 			safeName: 'm3',
 			unit: 'm3',
 			symbol: null,
