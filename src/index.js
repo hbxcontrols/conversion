@@ -101,7 +101,7 @@ module.exports = {
 			singularName: 'British Thermal Unit',
 			pluralName: 'British Thermal Units',
 			safeName: 'btu',
-			unit: 'btu',
+			unit: 'BTU',
 			symbol: null,
 			symbolHTML: null,
 			type: 'energy',
