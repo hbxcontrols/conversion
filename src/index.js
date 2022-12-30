@@ -17,7 +17,7 @@ module.exports = {
 	 * @param {Number} decimals Number of decimal places to return
 	 * @returns this
 	 */
-	round (value, decimals = 2) {
+	round (value = 0, decimals = 2) {
 		return precision.round(value, decimals)
 	},
 
@@ -27,11 +27,11 @@ module.exports = {
 	 * @param {String} unit
 	 * @returns Conversion object
 	 */
-	volume: function(val, unit) { return { value: this.type(unit).convert(val) }},
-	flow: function(val, unit) { return { value: this.type(unit).convert(val) }},
-	energy: function(val, unit) { return { value: this.type(unit).convert(val) }},
-	temperature: function(val, unit) { return { value: this.type(unit).convert(val) }},
-	pressure: function(val, unit) { return { value: this.type(unit).convert(val) }},
+	volume: function(val = 0, unit) { return { value: this.type(unit).convert(val) }},
+	flow: function(val = 0, unit) { return { value: this.type(unit).convert(val) }},
+	energy: function(val = 0, unit) { return { value: this.type(unit).convert(val) }},
+	temperature: function(val = 0, unit) { return { value: this.type(unit).convert(val) }},
+	pressure: function(val = 0, unit) { return { value: this.type(unit).convert(val) }},
 
 	types: {
 		// Volume
@@ -43,7 +43,7 @@ module.exports = {
 			symbol: null,
 			symbolHTML: null,
 			type: 'volume',
-			convert: (val) => val
+			convert: (val = 0) => val
 		},
 		l: {
 			singularName: 'Litre',
@@ -53,7 +53,7 @@ module.exports = {
 			symbol: null,
 			symbolHTML: null,
 			type: 'volume',
-			convert: (val) => val * 3.785412
+			convert: (val = 0) => val * 3.785412
 		},
 		m3: {
 			singularName: 'Cubic Metre',
@@ -63,7 +63,7 @@ module.exports = {
 			symbol: null,
 			symbolHTML: null,
 			type: 'volume',
-			convert: (val) => val / 264.172
+			convert: (val = 0) => val / 264.172
 		},
 		ccf: {
 			singularName: 'One-hundred Cubic-feet',
@@ -73,7 +73,7 @@ module.exports = {
 			symbol: null,
 			symbolHTML: null,
 			type: 'volume',
-			convert: (val) => val / 748
+			convert: (val = 0) => val / 748
 		},
 		// Flow
 		gpm: { // Default
@@ -84,7 +84,7 @@ module.exports = {
 			symbol: null,
 			symbolHTML: null,
 			type: 'flow',
-			convert: (val) => val
+			convert: (val = 0) => val
 		},
 		lpm: {
 			singularName: 'Litres per minute',
@@ -94,7 +94,7 @@ module.exports = {
 			symbol: null,
 			symbolHTML: null,
 			type: 'flow',
-			convert: (val) => val * 3.785412
+			convert: (val = 0) => val * 3.785412
 		},
 		// Energy
 		btu: { // Default
@@ -105,7 +105,7 @@ module.exports = {
 			symbol: null,
 			symbolHTML: null,
 			type: 'energy',
-			convert: (val) => val
+			convert: (val = 0) => val
 		},
 		kbtu: {
 			singularName: 'One-thousand British Thermal Units',
@@ -115,7 +115,7 @@ module.exports = {
 			symbol: null,
 			symbolHTML: null,
 			type: 'energy',
-			convert: (val) => val / 1000
+			convert: (val = 0) => val / 1000
 		},
 		gj: {
 			singularName: 'Gigajoule',
@@ -125,7 +125,7 @@ module.exports = {
 			symbol: null,
 			symbolHTML: null,
 			type: 'energy',
-			convert: (val) => val / 947817
+			convert: (val = 0) => val / 947817
 		},
 		kw: {
 			singularName: 'Kilowatt',
@@ -135,7 +135,7 @@ module.exports = {
 			symbol: null,
 			symbolHTML: null,
 			type: 'energy',
-			convert: (val) => val / 3412.141633
+			convert: (val = 0) => val / 3412.141633
 		},
 		mw: {
 			singularName: 'Megawatt',
@@ -145,7 +145,7 @@ module.exports = {
 			symbol: null,
 			symbolHTML: null,
 			type: 'energy',
-			convert: (val) => val / 3412141.633
+			convert: (val = 0) => val / 3412141.633
 		},
 		thm: {
 			singularName: 'Therm',
@@ -155,7 +155,7 @@ module.exports = {
 			symbol: null,
 			symbolHTML: null,
 			type: 'energy',
-			convert: (val) => val / 99976
+			convert: (val = 0) => val / 99976
 		},
 		// Pressure
 		psi: { // Default
@@ -166,7 +166,7 @@ module.exports = {
 			symbol: null,
 			symbolHTML: null,
 			type: 'pressure',
-			convert: (val) => val
+			convert: (val = 0) => val
 		},
 		bar: {
 			singularName: 'Bar',
@@ -176,7 +176,7 @@ module.exports = {
 			symbol: null,
 			symbolHTML: null,
 			type: 'pressure',
-			convert: (val) => val / 14.5037
+			convert: (val = 0) => val / 14.5037
 		},
 		kpa: {
 			singularName: 'Kilopascal',
@@ -186,7 +186,7 @@ module.exports = {
 			symbol: null,
 			symbolHTML: null,
 			type: 'pressure',
-			convert: (val) => val * 6.895
+			convert: (val = 0) => val * 6.895
 		},
 		// Temperature
 		f: { // Default
@@ -197,7 +197,7 @@ module.exports = {
 			symbol: '°',
 			symbolHTML: '&deg;',
 			type: 'temperature',
-			convert: (val) => val
+			convert: (val = 0) => val
 		},
 		c: {
 			singularname: 'Celcius',
@@ -207,7 +207,7 @@ module.exports = {
 			symbol: '°',
 			symbolHTML: '&deg;',
 			type: 'temperature',
-			convert: (val) => (val - 32) / 1.8
+			convert: (val = 0) => (val - 32) / 1.8
 		}
 	}
 }
