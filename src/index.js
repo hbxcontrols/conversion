@@ -27,11 +27,11 @@ module.exports = {
 	 * @param {String} unit
 	 * @returns Conversion object
 	 */
-	volume: function(val, unit) { this.type(unit).convert(val) },
-	flow: function(val, unit) { this.type(unit).convert(val) },
-	energy: function(val, unit) { this.type(unit).convert(val) },
-	temperature: function(val, unit) { this.type(unit).convert(val) },
-	pressure: function(val, unit) { this.type(unit).convert(val) },
+	volume: function(val, unit) { return { value: this.type(unit).convert(val) }},
+	flow: function(val, unit) { return { value: this.type(unit).convert(val) }},
+	energy: function(val, unit) { return { value: this.type(unit).convert(val) }},
+	temperature: function(val, unit) { return { value: this.type(unit).convert(val) }},
+	pressure: function(val, unit) { return { value: this.type(unit).convert(val) }},
 
 	types: {
 		// Volume
