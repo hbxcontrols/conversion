@@ -27,11 +27,11 @@ module.exports = {
 	 * @param {String} unit
 	 * @returns Conversion object
 	 */
-	volume: (val, unit) => this.convert(unit, val),
-	flow: (val, unit) => this.convert(unit, val),
-	energy: (val, unit) => this.convert(unit, val),
-	temperature: (val, unit) => this.convert(unit, val),
-	pressure: (val, unit) => this.convert(unit, val),
+	volume: (val, unit) => this.type(unit).convert(val),
+	flow: (val, unit) => this.type(unit).convert(val),
+	energy: (val, unit) => this.type(unit).convert(val),
+	temperature: (val, unit) => this.type(unit).convert(val),
+	pressure: (val, unit) => this.type(unit).convert(val),
 
 	types: {
 		// Volume
