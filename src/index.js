@@ -200,7 +200,7 @@ module.exports = {
 			convert: (val = 0) => val
 		},
 		c: {
-			singularname: 'Celcius',
+			singularName: 'Celcius',
 			pluralName: 'Celcius',
 			safeName: 'c',
 			unit: 'C',
