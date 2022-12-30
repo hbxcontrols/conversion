@@ -1,12 +1,7 @@
 const precision = require('number-precision')
 precision.enableBoundaryChecking(false)
 
-class Conversions {
-
-	constructor(value = 0) {
-		this.value = value
-	}
-
+module.exports = {
 	/**
 	 * Return a measurement object
 	 * @param {String} unit Type of measurement to return
@@ -14,18 +9,7 @@ class Conversions {
 	 */
 	type(unit) {
 		return (this.types[unit]) ? this.types[unit] : null
-	}
-
-	/**
-	 * Convert a value to a different measurement
-	 * @param {String} unit The unit to be converted
-	 * @returns this
-	 */
-	convert(unit, value = null) {
-		if(value) this.set(value)
-		this.value = (this.types[unit]) ? this.types[unit.toLowerCase()].convert(this.value) : 0
-		return this
-	}
+	},
 
 	/**
 	 * Round the current value to a precision point
@@ -33,21 +17,9 @@ class Conversions {
 	 * @param {Number} decimals Number of decimal places to return
 	 * @returns this
 	 */
-	round (decimals = 2) {
-		this.value = precision.round(this.value, decimals)
-		return this
-	}
-
-	/**
-	 * Set the value to be used/converted
-	 * @param {Number} value Set numeric value
-	 * @returns this
-	 */
-	set (value) {
-		if(!value || isNaN(parseFloat(value))) throw Error('Value input must be a number')
-		this.value = value
-		return this
-	}
+	round (value, decimals = 2) {
+		return precision.round(value, decimals)
+	},
 
 	/**
 	 * Backwards compatibility methods for v1 of this module
@@ -55,13 +27,13 @@ class Conversions {
 	 * @param {String} unit
 	 * @returns Conversion object
 	 */
-	volume = (val, unit) => this.convert(unit, val)
-	flow = (val, unit) => this.convert(unit, val)
-	energy = (val, unit) => this.convert(unit, val)
-	temperature = (val, unit) => this.convert(unit, val)
-	pressure = (val, unit) => this.convert(unit, val)
+	volume: (val, unit) => this.convert(unit, val),
+	flow: (val, unit) => this.convert(unit, val),
+	energy: (val, unit) => this.convert(unit, val),
+	temperature: (val, unit) => this.convert(unit, val),
+	pressure: (val, unit) => this.convert(unit, val),
 
-	types = {
+	types: {
 		// Volume
 		gal: { // Default
 			singularName: 'Gallon',
@@ -239,5 +211,3 @@ class Conversions {
 		}
 	}
 }
-
-module.exports = new Conversions()
