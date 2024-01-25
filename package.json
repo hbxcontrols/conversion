@@ -1,6 +1,6 @@
 {
 	"name": "@hbxcontrols/conversion",
-	"version": "2.0.1",
+	"version": "2.0.2",
 	"description": "A set of tools for converting units of measurement for HBX applications",
 	"main": "src",
 	"scripts": {
