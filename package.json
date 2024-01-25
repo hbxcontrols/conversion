@@ -1,14 +1,16 @@
 {
 	"name": "@hbxcontrols/conversion",
-	"version": "2.0.0",
+	"version": "2.0.1",
 	"description": "A set of tools for converting units of measurement for HBX applications",
-	"main": "./src/index.js",
+	"main": "src",
 	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1"
+		"release": "standard-version && git push --follow-tags",
+		"release-publish": "standard-version && git push --follow-tags && npm publish"
 	},
 	"author": "Chris Tohill <graphics@hbxcontrols.com>",
 	"license": "MIT",
 	"dependencies": {
-		"number-precision": "^1.6.0"
+		"number-precision": "^1.6.0",
+		"standard-version": "^9.5.0"
 	}
 }
