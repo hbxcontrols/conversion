@@ -17,7 +17,7 @@ module.exports = {
 	 * @param {Number} decimals Number of decimal places to return
 	 * @returns this
 	 */
-	round (value = 0, decimals = 2) {
+	round(value = 0, decimals = 2) {
 		return precision.round(value, decimals)
 	},
 
@@ -27,11 +27,11 @@ module.exports = {
 	 * @param {String} unit
 	 * @returns Conversion object
 	 */
-	volume: function(val = 0, unit) { return { value: this.type(unit).convert(val) }},
-	flow: function(val = 0, unit) { return { value: this.type(unit).convert(val) }},
-	energy: function(val = 0, unit) { return { value: this.type(unit).convert(val) }},
-	temperature: function(val = 0, unit) { return { value: this.type(unit).convert(val) }},
-	pressure: function(val = 0, unit) { return { value: this.type(unit).convert(val) }},
+	volume: function (val = 0, unit) { return { value: this.type(unit).convert(val) } },
+	flow: function (val = 0, unit) { return { value: this.type(unit).convert(val) } },
+	energy: function (val = 0, unit) { return { value: this.type(unit).convert(val) } },
+	temperature: function (val = 0, unit) { return { value: this.type(unit).convert(val) } },
+	pressure: function (val = 0, unit) { return { value: this.type(unit).convert(val) } },
 
 	types: {
 		// Volume
