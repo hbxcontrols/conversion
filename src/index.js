@@ -128,7 +128,7 @@ module.exports = {
 			symbol: null,
 			symbolHTML: null,
 			type: 'energy',
-			convert: (val = 0) => val / 947817
+			convert: (val = 0) => val / 947817.12
 		},
 		kw: {
 			singularName: 'Kilowatt',
